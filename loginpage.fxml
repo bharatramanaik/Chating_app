@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logincontroller">
+   <children>
+      <TextField fx:id="usn" layoutX="330.0" layoutY="190.0" prefHeight="34.0" prefWidth="221.0" promptText="usename" style="-fx-background-color: transparent; -fx-border-color: #2cb0e4; -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="pass" layoutX="330.0" layoutY="258.0" prefHeight="34.0" prefWidth="222.0" promptText="password" style="-fx-background-color: trnsparent; -fx-border-color: #2cb0e4; -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </PasswordField>
+      <Button fx:id="login" layoutX="382.0" layoutY="350.0" mnemonicParsing="false" onAction="#logins" prefHeight="16.0" prefWidth="73.0" style="-fx-background-color: #2cb0e4;" text="Login" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="warn" alignment="CENTER" layoutX="246.0" layoutY="410.0" prefHeight="36.0" prefWidth="346.0" textAlignment="CENTER" textFill="#d12f2f">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Text fill="#2cb0e4" layoutX="369.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login" wrappingWidth="100.00000915527335">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="40.0" fitWidth="39.0" layoutX="282.0" layoutY="258.0">
+         <image>
+            <Image url="@lock.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="39.0" layoutX="282.0" layoutY="190.0">
+         <image>
+            <Image url="@user.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="102.0" fitWidth="100.0" layoutX="360.0" layoutY="14.0">
+         <image>
+            <Image url="@login.png" />
+         </image>
+      </ImageView>
+      <Pane prefHeight="500.0" prefWidth="252.0" style="-fx-background-color: #2cb0e4;">
+         <children>
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="31.0" layoutY="150.0">
+               <image>
+                  <Image url="@community.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="51.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chat App">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      
+   </children>
+</AnchorPane>
