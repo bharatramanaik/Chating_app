@@ -63,7 +63,7 @@ public class server{
         @Override
         public void run() {
                 try{
-                    conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/taskschema", "root", "Naik@123");
+                    conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/<databse_name>", "username", "password");
                     prst=conn.prepareStatement("SELECT usn,pass FROM student1 WHERE usn=? AND pass=?");
                     prst.setString(1, usnn);
                     prst.setString(2, passs);
@@ -152,33 +152,7 @@ public class server{
         
     }
 
-    /**
-     * Innerserver4nm21is034
-     */
-    // public class Innerserver {
-
-    //     public void nextScene(){
-    //         Platform.runLater(()->{
-    //             try {
-    //                 FXMLLoader loader=new FXMLLoader(getClass().getResource("succes.fxml"));
-    //                 Parent root=loader.load();
-    //                 //stage=(Stage)((Node).event).getScene().getWindow();
-    //                 Scene scene=new Scene(root);
-    //                 stage.setScene(scene);
-    //                 stage.show();
-    //                 //System.out.println(clientip);
-    //             } catch (Exception e) {
-    //                 // TODO: handle exception
-    //             }
-
-    //         });
-    //     }
-
-    //     public static void main(String[] args) {
-            
-    //     }
-
-    // }
+    
 
 
 
