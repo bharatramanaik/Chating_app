@@ -55,6 +55,19 @@ public class succontrol {
     public void sttext(String usnn){
         //myname.setText(usnn);
         myusn=usnn;
+        try {
+            socket = new Socket("localhost", 8889);
+            System.out.println("Socket is connected with server!");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/taskschema", "root", "Naik@123");
+            prst=conn.prepareStatement("INSERT INTO loginss (usn,timestamps) VALUES (?,?)");
+            prst.setString(1, myusn);
+            long currentTimeMillis = System.currentTimeMillis();
+            java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(currentTimeMillis);
+            prst.setTimestamp(2, currentTimestamp);
+            prst.executeUpdate();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         
     }
 
@@ -127,6 +140,17 @@ public class succontrol {
 
      @FXML
     void logout(ActionEvent event) {
+        try {
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/taskschema", "root", "Naik@123");
+            prst=conn.prepareStatement("INSERT INTO logoutss (usn,timestamps) VALUES (?,?)");
+            prst.setString(1, myusn);
+            long currentTimeMillis = System.currentTimeMillis();
+            java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(currentTimeMillis);
+            prst.setTimestamp(2, currentTimestamp);
+            prst.executeUpdate();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         try {
             System.out.println(myusn);
             conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/<databse_name>", "username", "password");
