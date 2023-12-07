@@ -56,8 +56,6 @@ public class succontrol {
         //myname.setText(usnn);
         myusn=usnn;
         try {
-            socket = new Socket("localhost", 8889);
-            System.out.println("Socket is connected with server!");
             conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/taskschema", "root", "Naik@123");
             prst=conn.prepareStatement("INSERT INTO loginss (usn,timestamps) VALUES (?,?)");
             prst.setString(1, myusn);
