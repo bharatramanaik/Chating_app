@@ -64,7 +64,7 @@ public class succontrol {
         ResultSet rs1;
         try {
             System.out.println(myusn);
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/taskschema", "root", "Naik@123");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/<databse_name>", "username", "password");
             pr1=conn.prepareStatement("SELECT username,branch FROM userdetails WHERE usn=?");
             pr1.setString(1, myusn);
             rs1=pr1.executeQuery();
@@ -85,7 +85,7 @@ public class succontrol {
     @FXML
     void chats(ActionEvent event) {
         try {
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/taskschema", "root", "Naik@123");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/<databse_name>", "username", "password");
             prst=conn.prepareStatement("SELECT clusn,clip,clport FROM chathelper WHERE clusn <> ?");
             prst.setString(1, myusn);
             rslt=prst.executeQuery();
@@ -129,7 +129,7 @@ public class succontrol {
     void logout(ActionEvent event) {
         try {
             System.out.println(myusn);
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/taskschema", "root", "Naik@123");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/<databse_name>", "username", "password");
             prst=conn.prepareStatement("DELETE FROM chathelper WHERE clusn=?");
             prst.setString(1, myusn);
             prst.executeUpdate();
