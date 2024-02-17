@@ -1,5 +1,5 @@
 # Group chating app
-##Schema diagram
+## Schema diagram
 <img src="https://github.com/bharatramanaik/Chating_app/blob/main/Schemadi.jpg"
      alt="Schema" style="height: 13cm; width: 12cm;"
     />
