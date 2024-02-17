@@ -1,6 +1,6 @@
 # Group chating app
-<img src=""
-     alt="bWAPP"
+<img src="https://github.com/bharatramanaik/Chating_app/blob/main/Schemadi.jpg"
+     alt="Schema"
     />
 
 # Setup
