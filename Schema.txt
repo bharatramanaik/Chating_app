@@ -1,0 +1,38 @@
+//
+Create database chat_app;
+
+use database chat_app;
+
+create table userdetails
+(
+usn char(10),
+username varchar(20),
+branch varchar(20),
+constraint user_usn_pk primary key(usn)
+)
+
+create table logindetails
+(
+usn char(10),
+password varchar(20),
+constraint log_usn_fk foreign key(usn) references userdetails(usn)
+)
+
+create table logins
+(
+usn char(10),
+timeoflogin timestamp
+)
+
+create table logouts
+(
+usn char(10),
+timeoflogout timestamp
+)
+
+create table sessionhandler
+(
+usn char(10) unique,
+clientip varchar(40),
+clientport int
+) 
