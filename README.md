@@ -5,7 +5,7 @@
     />
 
 # Setup
-## Create the specified database and tables (Queries are in Schema.txt)
+## Create the specified database and tables and users(Queries are in Schema.txt)
 ## Clone the repository in to desktop
 ```
 git clone git@github.com:bharatramanaik/Chating_app.git
