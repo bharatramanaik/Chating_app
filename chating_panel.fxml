@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Chat">
    <children>
       <Button fx:id="send" layoutX="497.0" layoutY="432.0" mnemonicParsing="false" onAction="#send" style="-fx-background-color: #2cb0e4;" text="Send" textFill="WHITE">
