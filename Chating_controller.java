@@ -15,8 +15,8 @@ public class Chating_controller extends Thread {
         try {
             this.socket = socket;
             this.clients = clients;
-            this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.writer = new PrintWriter(socket.getOutputStream(), true);
+            this.reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+            this.writer = new PrintWriter(this.socket.getOutputStream(), true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -27,23 +27,17 @@ public class Chating_controller extends Thread {
         try {
             String msg;
             while ((msg = reader.readLine()) != null) {
-                
                 for (Chating_controller cl : clients) {
-                    cl.writer.println(msg);
+                    // System.out.println(cl);
+                    if(cl.socket!=this.socket){
+                        cl.writer.println(msg);
+                    }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // finally {
-        //     try {
-        //         reader.close();
-        //         writer.close();
-        //         socket.close();
-        //     } catch (IOException e) {
-        //         e.printStackTrace();
-        //     }
-        // }
+        
 
     }
 }

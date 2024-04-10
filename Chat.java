@@ -7,10 +7,17 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
+import java.security.Timestamp;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Base64;
 import java.util.ResourceBundle;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,13 +60,28 @@ public class Chat extends Thread implements Initializable{
     BufferedReader reader;
     PrintWriter writer;
     Socket socket;
+    String myusn;
+    String myip;
+    int myport;
+    String clusn;
+    String clip;
+    int clport;
+    private String key="bharat12||091234";
+    private byte[] k=key.getBytes();
+    private SecretKeySpec secret=new SecretKeySpec(k, "AES");
+    
 
    
     public void connecttoserver(){
         clname.setText(succontrol.clusn);
+        myusn=succontrol.myusn;
+        myip=succontrol.myip;
+        myport=succontrol.myport;
+        clip=succontrol.clip;
+        clport=succontrol.clport;
         try {
-            socket = new Socket("localhost", 8889);
-            System.out.println("Socket is connected with server!");
+            // System.out.println("myip:-"+myip+",myport:-"+myport+"clip:-"+clip+",clportport:-"+clport);
+            socket = new Socket("localhost",8889);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream(), true);
             this.start();
@@ -73,7 +95,11 @@ public class Chat extends Thread implements Initializable{
         try {
             while (true) {
                 String msgfrom=reader.readLine();
-                chats.appendText(msgfrom+"\n");
+                Cipher ciper=Cipher.getInstance("AES");
+                ciper.init(Cipher.DECRYPT_MODE, secret);
+                byte[] decrypted=ciper.doFinal(Base64.getDecoder().decode(msgfrom));
+                String finalstring=new String(decrypted).trim();
+                chats.appendText(finalstring+"\n");
             }
         } catch (Exception e) {
             // TODO: handle exception
@@ -84,9 +110,18 @@ public class Chat extends Thread implements Initializable{
     void send(ActionEvent event) {
        try {
             String mstosend=sendmsg.getText();
-            writer.println(succontrol.myusn+" : "+mstosend);
-            //chats.appendText(mstosend+"\n");
+            // System.out.println(succontrol.myusn);
+            // Encrypting messages
+            chats.appendText("Me : "+mstosend+"\n");
             sendmsg.clear();
+            
+            String combinedString=myusn+" : "+mstosend;
+            Cipher ciper=Cipher.getInstance("AES");
+            ciper.init(Cipher.ENCRYPT_MODE, secret);
+            byte[] encryptedmsg=ciper.doFinal(combinedString.getBytes());
+            String encodedString=Base64.getEncoder().encodeToString(encryptedmsg);
+            String msg=new String(encodedString);
+            writer.println(msg);
        } catch (Exception e) {
             // TODO: handle exception
        }
@@ -112,8 +147,9 @@ public class Chat extends Thread implements Initializable{
     
      @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
-        connecttoserver();
+       
+            connecttoserver();
+       
     }
 
 

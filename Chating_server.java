@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Chating_server {
 
+    
     public static ArrayList<Chating_controller> clients=new ArrayList<>();
     public static void main(String[] args) {
         ServerSocket serverSocket;
@@ -17,6 +18,7 @@ public class Chating_server {
                 System.out.println("Connected");
                 Chating_controller clientThread = new Chating_controller(socket, clients);
                 clients.add(clientThread);
+                // System.out.println(clients);
                 clientThread.start();
             }
         } catch (IOException e) {

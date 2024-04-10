@@ -63,8 +63,8 @@ public class server{
         @Override
         public void run() {
                 try{
-                    conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/taskschema", "root", "Naik@123");
-                    prst=conn.prepareStatement("SELECT usn,pass FROM student1 WHERE usn=? AND pass=?");
+                    conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Naik@091234");
+                    prst=conn.prepareStatement("SELECT usn,pass FROM logindet WHERE usn=? AND pass=?");
                     prst.setString(1, usnn);
                     prst.setString(2, passs);
 
@@ -84,7 +84,7 @@ public class server{
                             rslt.close();
 
                             if (!isrecordexists(conn,usnn,clientip,port)) {
-                                String sql = "INSERT INTO chathelper(clusn, clip, clport) VALUES(?, ?, ?)";
+                                String sql = "INSERT INTO sessionhandler(usn, ipaddr, port) VALUES(?, ?, ?)";
                                 try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
                                     preparedStatement.setString(1, usnn);
                                     preparedStatement.setString(2, clientip);
@@ -135,7 +135,7 @@ public class server{
         public boolean isrecordexists(Connection conn,String usn,String ip,int port) throws SQLException {
             
                 
-                String query = "SELECT 1 FROM chathelper WHERE clusn = ?";
+                String query = "SELECT 1 FROM sessionhandler WHERE usn = ?";
 
                 try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
                     preparedStatement.setString(1, usn);
