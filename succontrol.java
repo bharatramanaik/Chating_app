@@ -55,18 +55,6 @@ public class succontrol {
     public void sttext(String usnn){
         //myname.setText(usnn);
         myusn=usnn;
-        try {
-           
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Naik@091234");
-            prst=conn.prepareStatement("INSERT INTO logintime (usn,time) VALUES (?,?)");
-            prst.setString(1, myusn);
-            long currentTimeMillis = System.currentTimeMillis();
-            java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(currentTimeMillis);
-            prst.setTimestamp(2, currentTimestamp);
-            prst.executeUpdate();
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
         
     }
 
@@ -76,7 +64,7 @@ public class succontrol {
         ResultSet rs1;
         try {
             System.out.println(myusn);
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Naik@091234");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Example@2024#");
             pr1=conn.prepareStatement("SELECT username,branch FROM userdet WHERE usn=?");
             pr1.setString(1, myusn);
             rs1=pr1.executeQuery();
@@ -97,8 +85,8 @@ public class succontrol {
     @FXML
     void chats(ActionEvent event) {
         try {
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Naik@091234");
-            prst=conn.prepareStatement("SELECT usn, ipaddr, port FROM sessionhandler WHERE usn <> ?");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Example@2024#");
+            prst=conn.prepareStatement("SELECT usn,ipaddr,port FROM sessionhandler WHERE usn <> ?");
             prst.setString(1, myusn);
             rslt=prst.executeQuery();
             if (rslt.next()) {
@@ -138,19 +126,8 @@ public class succontrol {
     void logout(ActionEvent event) {
 
         try {
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Naik@091234");
-            prst=conn.prepareStatement("INSERT INTO logouttime (usn,time) VALUES (?,?)");
-            prst.setString(1, myusn);
-            long currentTimeMillis = System.currentTimeMillis();
-            java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(currentTimeMillis);
-            prst.setTimestamp(2, currentTimestamp);
-            prst.executeUpdate();
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-        try {
-            //System.out.println(myusn);
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Naik@091234");
+            System.out.println(myusn);
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Example@2024#");
             prst=conn.prepareStatement("DELETE FROM sessionhandler WHERE usn=?");
             prst.setString(1, myusn);
             prst.executeUpdate();

@@ -19,6 +19,7 @@ public class Chating_server {
                 Chating_controller clientThread = new Chating_controller(socket, clients);
                 clients.add(clientThread);
                 clientThread.start();
+                
             }
         } catch (IOException e) {
             e.printStackTrace();

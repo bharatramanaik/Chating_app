@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -89,13 +90,15 @@ public class server{
         @Override
         public void run() {
                 try{
-                    conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Naik@091234");
+                    conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/chatting_app", "root", "Example@2024#");
                     prst=conn.prepareStatement("SELECT usn,pass FROM logindet WHERE usn=? AND pass=?");
                     prst.setString(1, usnn);
                     prst.setString(2, passs);
 
                     rslt=prst.executeQuery();
-
+                    String succString="success";
+                    String duplString="duplicate";
+                    String invaliString="invalid";
                     if (rslt.next()) {
                         try {
                             
@@ -105,15 +108,14 @@ public class server{
                             
                             prst.close();
                             rslt.close();
-                            String succString="success";
-                            String duplString="duplicate";
+                            
                             ciper=Cipher.getInstance("AES");
                             ciper.init(Cipher.ENCRYPT_MODE, secret);
                             byte[] encryptedmsg1=ciper.doFinal(succString.getBytes());
                             byte[] encryptedmsg2=ciper.doFinal(duplString.getBytes());
                             String encodedString1=Base64.getEncoder().encodeToString(encryptedmsg1);
                             String encodedString2=Base64.getEncoder().encodeToString(encryptedmsg2);
-
+                            
                             if (!isrecordexists(conn,usnn,clientip,port)) {
                                 String sql = "INSERT INTO sessionhandler(usn, ipaddr, port) VALUES(?, ?, ?)";
                                 try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
@@ -121,32 +123,37 @@ public class server{
                                     preparedStatement.setString(2, clientip);
                                     preparedStatement.setInt(3, port);
                                     preparedStatement.executeUpdate();
-                                    
+                                    // System.out.println(encodedString1);
                                     obwrite.writeObject(encodedString1);
                                     
                                 } catch (SQLException e) {
                                     e.printStackTrace();
                                 }
                             } else {
+                                // System.out.println(encodedString2);
                                 obwrite.writeObject(encodedString2);
                             }
-
-
+                            
+                            
                             
                         } catch (Exception e) {
                             // TODO: handle exception
                             e.printStackTrace();
-
+                            
                         }  
-                    
+                        
                     } else {
-                    
+                        // System.out.println(invaliString);
+                        obwrite.writeObject(invaliString);
                     }
 
                 } catch (SQLException e) {
                     // TODO: handle exception
                     e.printStackTrace();
                     
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
 
         }
@@ -170,7 +177,34 @@ public class server{
         
     }
 
-    
+    /**
+     * Innerserver4nm21is034
+     */
+    // public class Innerserver {
+
+    //     public void nextScene(){
+    //         Platform.runLater(()->{
+    //             try {
+    //                 FXMLLoader loader=new FXMLLoader(getClass().getResource("succes.fxml"));
+    //                 Parent root=loader.load();
+    //                 //stage=(Stage)((Node).event).getScene().getWindow();
+    //                 Scene scene=new Scene(root);
+    //                 stage.setScene(scene);
+    //                 stage.show();
+    //                 //System.out.println(clientip);
+    //             } catch (Exception e) {
+    //                 // TODO: handle exception
+    //             }
+
+    //         });
+    //     }
+
+    //     public static void main(String[] args) {
+            
+    //     }
+
+    // }
+
 
 
     

@@ -96,6 +96,7 @@ public class Chat extends Thread implements Initializable{
                 byte[] decrypted=ciper.doFinal(Base64.getDecoder().decode(msgfrom));
                 String finalstring=new String(decrypted).trim();
                 chats.appendText(finalstring+"\n");
+                
             }
         } catch (Exception e) {
             // TODO: handle exception

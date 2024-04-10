@@ -76,8 +76,9 @@ public class logincontroller {
                     String encodedString=Base64.getEncoder().encodeToString(encryptedmsg);
                     prnt.println(encodedString);
                     prnt.flush();
+
+                    // Reciving response
                     String res=(String) obread.readObject();
-                    ciper = Cipher.getInstance("AES");
                     ciper.init(Cipher.DECRYPT_MODE, secret);
                     byte[] decrypted=ciper.doFinal(Base64.getDecoder().decode(res));
                     String responsString=new String(decrypted);

@@ -33,6 +33,7 @@ public class Chating_controller extends Thread {
                     }
                 }
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
