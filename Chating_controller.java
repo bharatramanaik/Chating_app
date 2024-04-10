@@ -28,7 +28,6 @@ public class Chating_controller extends Thread {
             String msg;
             while ((msg = reader.readLine()) != null) {
                 for (Chating_controller cl : clients) {
-                    // System.out.println(cl);
                     if(cl.socket!=this.socket){
                         cl.writer.println(msg);
                     }

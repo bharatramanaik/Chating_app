@@ -3,6 +3,11 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Base64;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,7 +42,10 @@ public class logincontroller {
     PrintWriter prnt;
     ObjectInputStream obread;
     InputStream input;
-
+    private String key="bharat12||091234";
+    private byte[] k=key.getBytes();
+    private SecretKeySpec secret=new SecretKeySpec(k, "AES");
+    private Cipher ciper;
 
     public void logins(ActionEvent event) {
 
@@ -58,15 +66,24 @@ public class logincontroller {
                     String usn1=usn.getText().toString();
                     String pass1=pass.getText().toString();
                     String fina=usn1+" "+pass1;
-                    usn.setText("");
-                    pass.setText("");
-                    prnt.println(fina);
+                    // usn.setText("");
+                    usn.clear();
+                    // pass.setText("");
+                    pass.clear();
+                    ciper=Cipher.getInstance("AES");
+                    ciper.init(Cipher.ENCRYPT_MODE, secret);
+                    byte[] encryptedmsg=ciper.doFinal(fina.getBytes());
+                    String encodedString=Base64.getEncoder().encodeToString(encryptedmsg);
+                    prnt.println(encodedString);
                     prnt.flush();
                     String res=(String) obread.readObject();
-                    
+                    ciper = Cipher.getInstance("AES");
+                    ciper.init(Cipher.DECRYPT_MODE, secret);
+                    byte[] decrypted=ciper.doFinal(Base64.getDecoder().decode(res));
+                    String responsString=new String(decrypted);
                     // System.out.println(res);
                     // System.out.println(ip);
-                    if (res.equals("success")) {
+                    if (responsString.equals("success")) {
                         try {
                             System.out.println(Thread.currentThread().getName());
                             FXMLLoader loader=new FXMLLoader(getClass().getResource("succes.fxml"));
@@ -82,7 +99,7 @@ public class logincontroller {
                             } catch (Exception e) {
                                 // TODO: handle exception
                             }
-                    } else if (res.equals("duplicate")) {
+                    } else if (responsString.equals("duplicate")) {
                         warn.setText("This user is already logged in");
                     } else {
                         warn.setText("Invalid credentials");

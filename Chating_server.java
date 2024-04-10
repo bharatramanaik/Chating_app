@@ -18,7 +18,6 @@ public class Chating_server {
                 System.out.println("Connected");
                 Chating_controller clientThread = new Chating_controller(socket, clients);
                 clients.add(clientThread);
-                // System.out.println(clients);
                 clientThread.start();
             }
         } catch (IOException e) {

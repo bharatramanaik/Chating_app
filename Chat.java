@@ -4,15 +4,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
-import java.security.Timestamp;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Base64;
 import java.util.ResourceBundle;
 
@@ -120,8 +116,7 @@ public class Chat extends Thread implements Initializable{
             ciper.init(Cipher.ENCRYPT_MODE, secret);
             byte[] encryptedmsg=ciper.doFinal(combinedString.getBytes());
             String encodedString=Base64.getEncoder().encodeToString(encryptedmsg);
-            String msg=new String(encodedString);
-            writer.println(msg);
+            writer.println(encodedString);
        } catch (Exception e) {
             // TODO: handle exception
        }
